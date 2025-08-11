@@ -4,7 +4,8 @@
   "description": "> **Automated DevOps pipeline powered by AI with integrated security checks for fast, secure, and reliable software delivery.**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No tests yet\" && exit 0",
+    "build": "echo \"No build step\" && exit 0"
   },
   "repository": {
     "type": "git",
