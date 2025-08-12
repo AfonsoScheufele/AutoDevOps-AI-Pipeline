@@ -1,20 +1,38 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
+
+import logger from './middleware/logger.js';
+import indexRouter from './routes/index.js';
+import statusRouter from './routes/status.js';
+
+dotenv.config();
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World from AutoDevOps with Express!');
+// Middleware de log
+app.use(logger);
+
+// Rotas
+app.use('/', indexRouter);
+app.use('/status', statusRouter);
+
+// Middleware para rota não encontrada
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not Found' });
 });
 
-app.get('/status', (req, res) => {
-    res.json({ status: 'ok', uptime: process.uptime() });
+// Middleware de tratamento de erros
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
-// Só inicia o servidor se o arquivo for executado diretamente
-if (require.main === module) {
-    app.listen(port, () => {
-        console.log(`Server listening at http://localhost:${port}`);
-    });
+// Só inicia o servidor se for o arquivo principal
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+  });
 }
 
-module.exports = app;
+export default app;

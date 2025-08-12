@@ -1,5 +1,5 @@
-const http = require('http');
-const app = require('../server');
+import http from 'http';
+import app from '../server.js';
 
 let server;
 const port = 3001;  // porta que o servidor vai usar para teste
