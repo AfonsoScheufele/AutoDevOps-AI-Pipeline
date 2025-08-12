@@ -4,7 +4,7 @@
   "description": "> **Automated DevOps pipeline powered by AI with integrated security checks for fast, secure, and reliable software delivery.**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests yet\" && exit 0",
+    "test": "jest",
     "build": "echo \"No build step\" && exit 0"
   },
   "repository": {
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/AfonsoScheufele/AutoDevOps-AI-Pipeline/issues"
   },
-  "homepage": "https://github.com/AfonsoScheufele/AutoDevOps-AI-Pipeline#readme"
+  "homepage": "https://github.com/AfonsoScheufele/AutoDevOps-AI-Pipeline#readme",
+  "devDependencies": {
+    "jest": "^30.0.5"
+  }
 }
