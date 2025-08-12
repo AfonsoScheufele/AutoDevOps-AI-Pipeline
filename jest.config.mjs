@@ -1,9 +1,7 @@
 export default {
   testEnvironment: 'node',
-  transform: {},
-  globals: {
-    'vue-jest': {
-      experimentalCSSCompile: false
-    }
-  }
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  testMatch: ['**/tests/**/*.test.js', '**/?(*.)+(spec|test).[jt]s?(x)'],
 };
