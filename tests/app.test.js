@@ -18,7 +18,7 @@ test('GET / retorna "Hello World from AutoDevOps!"', (done) => {
     res.on('data', chunk => data += chunk);
 
     res.on('end', () => {
-      expect(data).toBe('Hello World from AutoDevOps!\n');
+      expect(data).toBe('Hello World from AutoDevOps with Express!\n');
       done();
     });
   });
