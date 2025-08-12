@@ -1,24 +1,25 @@
 const http = require('http');
-const app = require('../server'); // vamos ajustar seu app para exportar o servidor
+const app = require('../server');
 
 let server;
+const port = 3001;  // porta que o servidor vai usar para teste
 
-beforeAll(() => {
-  server = app.listen(3001);
+beforeAll((done) => {
+  server = app.listen(port, done); // espera o servidor iniciar antes de rodar o teste
 });
 
-afterAll(() => {
-  server.close();
+afterAll((done) => {
+  server.close(done); // fecha o servidor após todos os testes
 });
 
-test('GET / retorna "Hello World from AutoDevOps!"', (done) => {
-  http.get('http://localhost:3000', (res) => {
+test('GET / retorna "Hello World from AutoDevOps with Express!"', (done) => {
+  http.get(`http://localhost:${port}`, (res) => {
     let data = '';
 
     res.on('data', chunk => data += chunk);
 
     res.on('end', () => {
-      expect(data).toBe('Hello World from AutoDevOps with Express!\n');
+      expect(data).toBe('Hello World from AutoDevOps with Express!');
       done();
     });
   });
