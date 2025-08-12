@@ -12,7 +12,7 @@ afterAll(() => {
 });
 
 test('GET / retorna "Hello World from AutoDevOps!"', (done) => {
-  http.get('http://localhost:3001', (res) => {
+  http.get('http://localhost:3000', (res) => {
     let data = '';
 
     res.on('data', chunk => data += chunk);
