@@ -10,15 +10,9 @@ export default defineConfig([
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,   // adiciona globals do jest
+        ...globals.jest,
       },
-      sourceType: "module",
-    },
-  },
-  {
-    files: ["**/*.js"],
-    languageOptions: {
-      sourceType: "commonjs",
+      sourceType: "module",  // tudo como módulo
     },
   },
 ]);
