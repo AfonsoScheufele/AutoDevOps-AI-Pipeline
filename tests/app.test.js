@@ -1,5 +1,5 @@
 const http = require('http');
-const app = require('../app'); // vamos ajustar seu app para exportar o servidor
+const app = require('../server'); // vamos ajustar seu app para exportar o servidor
 
 let server;
 
