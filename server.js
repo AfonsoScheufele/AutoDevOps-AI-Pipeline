@@ -6,8 +6,11 @@ app.get('/', (req, res) => {
   res.send('Hello World from AutoDevOps with Express!');
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
+// Só inicia o servidor se o arquivo for executado diretamente
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+  });
+}
 
 module.exports = app;
