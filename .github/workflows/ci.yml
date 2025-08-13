@@ -9,26 +9,39 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 22
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm install
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: Run lint
-      run: npm run lint
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: npm run test
+      - name: Format code with Prettier
+        run: npm run format
 
-    - name: Upload coverage
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage-report
-        path: coverage
+      - name: Run lint with fix
+        run: npm run lint
+
+      - name: Run tests with coverage threshold
+        run: npm run coverage:strict
+
+      - name: Run Snyk to check vulnerabilities
+        uses: snyk/actions@master
+        with:
+          args: test
