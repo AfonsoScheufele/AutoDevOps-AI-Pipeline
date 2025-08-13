@@ -10,6 +10,8 @@
   ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": "off"
   }
 }
