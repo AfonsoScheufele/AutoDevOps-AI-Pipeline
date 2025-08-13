@@ -23,7 +23,7 @@ app.use('/status', statusRouter);
 // Rota /deploy
 app.post('/deploy', (req, res) => {
   const { branch } = req.body;
-  if(branch) {
+  if (branch) {
     return res.json({ message: `Deploy iniciado para a branch ${branch}` });
   }
   res.status(400).json({ error: 'Branch não informada' });
@@ -34,8 +34,9 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
+// Middleware de tratamento de erros
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
-    /* eslint-disable-next-line no-unused-vars */
   console.error(err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
