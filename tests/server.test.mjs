@@ -36,11 +36,12 @@ describe('Testes do servidor', () => {
     expect(res.body.error).toBe('Not Found');
   });
 
-  // Teste do middleware de erro
+  /* eslint-disable no-unused-vars */
   it('Middleware de erro deve retornar 500', async () => {
     app.get('/force-error', (_req, _res) => {
       throw new Error('Erro forçado');
     });
+    /* eslint-disable no-unused-vars */
 
     const res = await request(app).get('/force-error');
     expect(res.statusCode).toBe(500);
