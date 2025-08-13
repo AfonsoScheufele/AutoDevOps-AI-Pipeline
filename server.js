@@ -10,12 +10,24 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware para interpretar JSON no corpo das requisições
+app.use(express.json());
+
 // Middleware de log
 app.use(logger);
 
 // Rotas
 app.use('/', indexRouter);
 app.use('/status', statusRouter);
+
+// Rota /deploy
+app.post('/deploy', (req, res) => {
+  const { branch } = req.body;
+  if(branch) {
+    return res.json({ message: `Deploy iniciado para a branch ${branch}` });
+  }
+  res.status(400).json({ error: 'Branch não informada' });
+});
 
 // Middleware para rota não encontrada
 app.use((req, res) => {
