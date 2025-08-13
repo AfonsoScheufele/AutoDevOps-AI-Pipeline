@@ -42,10 +42,10 @@ jobs:
       - name: Run tests with coverage threshold
         run: npm run coverage:strict
 
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
       - name: Run Snyk to check vulnerabilities
         uses: snyk/actions@master
         with:
           args: test
-
-      - name: Authenticate Snyk
-        run: snyk auth ${c0706926-be66-4c14-8620-da24c49edba5}
