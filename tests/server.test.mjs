@@ -38,7 +38,7 @@ describe('Testes do servidor', () => {
 
   // Teste do middleware de erro
   it('Middleware de erro deve retornar 500', async () => {
-    app.get('/force-error', (req, res) => {
+    app.get('/force-error', (_req, _res) => {
       throw new Error('Erro forçado');
     });
 
