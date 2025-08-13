@@ -5,11 +5,11 @@ let server;
 const port = 3001;  // porta que o servidor vai usar para teste
 
 beforeAll((done) => {
-  server = app.listen(port, done); // espera o servidor iniciar antes de rodar o teste
+  server = app.listen(port, done);
 });
 
 afterAll((done) => {
-  server.close(done); // fecha o servidor após todos os testes
+  server.close(done);
 });
 
 test('GET / retorna "Hello World from AutoDevOps with Express!"', (done) => {
@@ -19,7 +19,8 @@ test('GET / retorna "Hello World from AutoDevOps with Express!"', (done) => {
     res.on('data', chunk => data += chunk);
 
     res.on('end', () => {
-      expect(data).toBe('Hello World from AutoDevOps with Express!');
+      const json = JSON.parse(data); // <-- aqui
+      expect(json.message).toBe('Hello World from AutoDevOps with Express!');
       done();
     });
   });
@@ -38,4 +39,3 @@ test('GET /status retorna status ok', (done) => {
     });
   });
 });
-

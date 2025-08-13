@@ -34,8 +34,7 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
-// Middleware de tratamento de erros
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
