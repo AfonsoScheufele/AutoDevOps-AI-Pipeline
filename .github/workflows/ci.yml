@@ -46,3 +46,6 @@ jobs:
         uses: snyk/actions@master
         with:
           args: test
+
+      - name: Authenticate Snyk
+        run: snyk auth ${c0706926-be66-4c14-8620-da24c49edba5}
