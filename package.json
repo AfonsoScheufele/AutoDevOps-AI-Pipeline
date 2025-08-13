@@ -9,9 +9,9 @@
     "dev": "nodemon server.js",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "coverage": "jest --coverage",
-    "coverage:strict": "jest --coverage --coverageThreshold='{\"global\": {\"branches\": 80, \"functions\": 80, \"lines\": 80, \"statements\": 80}}'",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "coverage:strict": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --coverageThreshold='{\"global\": {\"branches\": 80, \"functions\": 80, \"lines\": 80, \"statements\": 80}}'",
     "verify": "npm run lint && npm run test"
   },
   "repository": {
@@ -25,8 +25,14 @@
     "url": "https://github.com/AfonsoScheufele/AutoDevOps-AI-Pipeline/issues"
   },
   "homepage": "https://github.com/AfonsoScheufele/AutoDevOps-AI-Pipeline#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [".js", ".mjs"],
+    "transform": {}
+  },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "cross-env": "^7.0.3",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-node": "^11.1.0",
