@@ -41,7 +41,7 @@ describe('Testes do servidor', () => {
     app.get('/force-error', (_req, _res) => {
       throw new Error('Erro forçado');
     });
-    /* eslint-disable no-unused-vars */
+     
 
     const res = await request(app).get('/force-error');
     expect(res.statusCode).toBe(500);
