@@ -34,7 +34,7 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
-app.use((err, req, res, _next) => {
+app.use((err, req, res, _next) => { // eslint-disable-line no-unused-vars
   console.error(err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
