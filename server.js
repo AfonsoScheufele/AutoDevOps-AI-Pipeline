@@ -1,40 +1,37 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import helmet from 'helmet';
-import cors from 'cors';
 import winston from 'winston';
 
 import indexRouter from './routes/index.js';
 import statusRouter from './routes/status.js';
+import errorHandler from './middleware/errorHandler.js';
+import security from './middleware/security.js'; // <- seu módulo de security
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configuração do Winston para logs estruturados
+// Logger geral com Winston
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
   ),
-  transports: [
-    new winston.transports.Console()
-  ],
+  transports: [new winston.transports.Console()],
 });
 
-// Middleware de log usando Winston
+// Middleware de log
 app.use((req, res, next) => {
   logger.info(`${req.method} ${req.url}`);
   next();
 });
 
 // Middleware de segurança
-app.use(helmet());
-app.use(cors());
+security(app);
 
-// Middleware para interpretar JSON no corpo das requisições
+// Middleware para interpretar JSON
 app.use(express.json());
 
 // Rotas
@@ -57,13 +54,9 @@ app.use((req, res) => {
 });
 
 // Middleware de tratamento de erros
-app.use((err, req, res, _next) => {
-    // eslint-disable-next-line no-unused-vars
-  logger.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
-});
+app.use(errorHandler);
 
-// Só inicia o servidor se for o arquivo principal
+// Só inicia o servidor se não estivermos em teste
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
     logger.info(`Server listening at http://localhost:${port}`);
