@@ -58,6 +58,7 @@ app.use((req, res) => {
 
 // Middleware de tratamento de erros
 app.use((err, req, res, _next) => {
+    // eslint-disable-next-line no-unused-vars
   logger.error(err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
