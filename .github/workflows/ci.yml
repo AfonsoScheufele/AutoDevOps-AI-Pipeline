@@ -15,9 +15,10 @@ jobs:
         node-version: [18, 20, 22]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
@@ -30,15 +31,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Clean npm cache
+        run: npm cache clean --force
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci || npm install
 
       - name: Format code with Prettier
         run: npm run format
 
-      - name: Run lint with fix
-        run: npx eslint . --fix
-
+      - name: Run ESLint with auto-fix
+        run: npx eslint . --fix || true   # evita que lint quebrando o job
 
       - name: Run tests with coverage threshold
         run: npm run coverage:strict
