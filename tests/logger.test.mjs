@@ -1,5 +1,6 @@
 import logger from '../middleware/logger.js';
 import { jest, describe, test, expect } from '@jest/globals';
+import winston from 'winston';
 
 describe('Middleware logger', () => {
   test('Deve chamar next() e imprimir log', () => {
