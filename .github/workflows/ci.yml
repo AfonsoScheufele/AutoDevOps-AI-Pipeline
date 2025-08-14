@@ -37,7 +37,8 @@ jobs:
         run: npm run format
 
       - name: Run lint with fix
-        run: npm run lint
+        run: npx eslint . --fix
+
 
       - name: Run tests with coverage threshold
         run: npm run coverage:strict
